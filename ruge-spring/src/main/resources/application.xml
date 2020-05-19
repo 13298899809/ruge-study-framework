@@ -12,5 +12,37 @@
 
 
     <!--复杂对象 注入-->
-    <bean id="connection" class="com.ruge.spring5.factoryBean.ConnectionFactoryBean"></bean>
+    <!--FactoryBean接口-->
+    <!--<bean id="connection" class="com.ruge.spring5.factoryBean.ConnectionFactoryBean"></bean>-->
+
+    <!--实例工厂-->
+    <!--
+    <bean id="connection" class="com.ruge.spring5.factoryBean.ConnectionFactory"></bean>
+     <bean factory-bean="connection" factory-method="getConnection"></bean>
+     -->
+
+    <!--静态工厂-->
+    <bean id="connection" class="com.ruge.spring5.factoryBean.StaticConnectionFactory"
+          factory-method="getConnection"></bean>
+
+    <!--测试scope-->
+    <bean id="account1" class="com.ruge.spring5.scope.Account" scope="singleton"></bean>
+    <bean id="account2" class="com.ruge.spring5.scope.Account" scope="prototype"></bean>
+
+    <!--test life-->
+    <!--工厂创建的同时  bean也创建-->
+    <!--如果想单例  同时只想在获取的时候进行对象的创建-->
+    <bean id="product1" class="com.ruge.spring5.life.Product1" scope="singleton"></bean>
+    <!--spring工厂会在获取对象的同事创建对象-->
+    <bean id="product2" class="com.ruge.spring5.life.Product2" scope="prototype"></bean>
+    <!--如果 scope="singleton"  同时只想在获取的时候进行对象的创建  lazy-init="true"-->
+    <bean id="product3" class="com.ruge.spring5.life.Product3" scope="singleton" lazy-init="true"></bean>
+
+    <!--生命周期 ~~~创建~~~-->
+    <!--生命周期 创建完对象后会调用afterPropertiesSet()方法  进行一些初始化操作-->
+    <bean id="product4" class="com.ruge.spring5.life.Product4"></bean>
+    <!--生命周期 创建完对象后会调用init()方法  进行一些初始化操作-->
+    <bean id="product5" class="com.ruge.spring5.life.Product5" init-method="init"></bean>
+
+    <bean id="product6" class="com.ruge.spring5.life.Product6" init-method="init"></bean>
 </beans>
