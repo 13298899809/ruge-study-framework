@@ -47,21 +47,21 @@ public class TestLife {
     @Test
     public void test4() {
         context.getBean("product4");
+        context.close();
     }
 
     /**
      * 创建完对象后会调用init()方法  进行一些初始化操作
+     * 销毁方法 只对单例有效
      */
     @Test
     public void test5() {
         context.getBean("product5");
+        context.close();
     }
 
 
-    @Test
-    public void test6() {
-        context.getBean("product6");
-    }
+
 
 
 

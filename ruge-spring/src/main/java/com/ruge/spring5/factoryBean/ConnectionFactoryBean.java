@@ -1,16 +1,18 @@
 package com.ruge.spring5.factoryBean;
 
+import lombok.Data;
 import org.springframework.beans.factory.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+@Data
 public class ConnectionFactoryBean implements FactoryBean<Connection> {
 
-    public static final String IP = "172.20.2.123";
-    public static final String PORT = "3306";
-    public static final String USERNAME = "arcfox";
-    public static final String PASSWORD = "TIMA_arcfox_2019";
+    private String driverClassName = "com.mysql.jdbc.Driver";
+    private String url = "jdbc:mysql://172.20.2.123:3306/RUGE";
+    private String userName = "arcfox";
+    private String passWord = "TIMA_arcfox_2019";
 
     /**
      * Return an instance (possibly shared or independent) of the object
@@ -32,8 +34,8 @@ public class ConnectionFactoryBean implements FactoryBean<Connection> {
      */
     @Override
     public Connection getObject() throws Exception {
-        Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://" + IP + ":" + PORT + "/RUGE", USERNAME, PASSWORD);
+        Class.forName(driverClassName);
+        return DriverManager.getConnection(url, userName, passWord);
     }
 
     /**
@@ -91,4 +93,5 @@ public class ConnectionFactoryBean implements FactoryBean<Connection> {
     public boolean isSingleton() {
         return true;
     }
+
 }

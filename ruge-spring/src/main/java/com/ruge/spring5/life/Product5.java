@@ -12,4 +12,8 @@ public class Product5 {
     public void init() {
         System.out.println("Product5 --> init");
     }
+
+    public void destory() {
+        System.out.println("Product5 --> destory");
+    }
 }

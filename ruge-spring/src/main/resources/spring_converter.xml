@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--注入自定义的消息类型转换器-->
+    <bean id="myConverter" class="com.ruge.spring5.converter.MyConverter">
+        <property name="pattern" value="yyyy-MM-dd"></property>
+    </bean>
+
+    <!--spring 注册 类型转换器 id 属性必须是:conversionService -->
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <ref bean="myConverter"></ref>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="person" class="com.ruge.spring5.converter.Person">
+        <property name="birth" value="2020-02-02"></property>
+    </bean>
+</beans>

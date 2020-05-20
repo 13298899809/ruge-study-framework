@@ -40,9 +40,10 @@
 
     <!--生命周期 ~~~创建~~~-->
     <!--生命周期 创建完对象后会调用afterPropertiesSet()方法  进行一些初始化操作-->
+    <!--生命周期 创建完对象后会调用destroy()方法  进行一些销毁操作-->
     <bean id="product4" class="com.ruge.spring5.life.Product4"></bean>
     <!--生命周期 创建完对象后会调用init()方法  进行一些初始化操作-->
-    <bean id="product5" class="com.ruge.spring5.life.Product5" init-method="init"></bean>
+    <!--生命周期 销毁后对象后会调用destory()方法  进行一些初始化操作-->
+    <bean id="product5" class="com.ruge.spring5.life.Product5" init-method="init" destroy-method="destory"></bean>
 
-    <bean id="product6" class="com.ruge.spring5.life.Product6" init-method="init"></bean>
 </beans>
