@@ -1,4 +1,4 @@
-package com.ruge.spring5.proxy;
+package com.ruge.spring5.aop;
 
 public interface UserService {
     /**

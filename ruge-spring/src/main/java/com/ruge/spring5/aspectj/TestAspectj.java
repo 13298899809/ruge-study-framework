@@ -1,13 +1,14 @@
-package com.ruge.spring5.proxy;
+package com.ruge.spring5.aspectj;
 
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class TestProxy {
-    public static final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/spring_proxy.xml");
+public class TestAspectj {
+
+    public static final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/spring_aspectj.xml");
 
     /**
-     * 动态代理测试
+     * aspectj代理测试
      */
     @Test
     public void test1() {

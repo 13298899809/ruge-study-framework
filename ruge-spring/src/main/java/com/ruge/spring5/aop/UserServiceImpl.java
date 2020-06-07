@@ -1,4 +1,6 @@
-package com.ruge.spring5.proxy;
+package com.ruge.spring5.aop;
+
+import org.springframework.beans.factory.BeanFactory;
 
 public class UserServiceImpl implements UserService {
 
@@ -9,6 +11,7 @@ public class UserServiceImpl implements UserService {
      * @param userName 用户名
      * @param passWord 密码
      */
+    @Log
     @Override
     public void register(String userName, String passWord) {
         System.out.println("用户注册 -->" + userName + "," + passWord);
