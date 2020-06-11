@@ -11,6 +11,7 @@
     <modules>
         <module>ruge-spring</module>
         <module>ruge-my-spring</module>
+        <module>ruge-security</module>
     </modules>
 
 
@@ -41,13 +42,13 @@
 
     <dependencyManagement>
         <dependencies>
-            <!--<dependency>
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-parent</artifactId>
-                <version>2.2.2.RELEASE</version>
+                <version>2.3.0.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>-->
+            </dependency>
 
             <!--junit单元测试-->
             <dependency>
@@ -57,7 +58,7 @@
             </dependency>
 
             <!--spring-->
-            <dependency>
+           <!-- <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <version>${spring.version}</version>
@@ -81,9 +82,9 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webmvc</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
+            </dependency>-->
             <!--aspectj-->
-            <dependency>
+         <!--   <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjrt</artifactId>
                 <version>${aspectj.version}</version>
@@ -93,7 +94,7 @@
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjweaver</artifactId>
                 <version>${aspectj.version}</version>
-            </dependency>
+            </dependency>-->
             <!--hibernate-->
             <dependency>
                 <groupId>org.hibernate</groupId>
@@ -106,7 +107,7 @@
                 <version>${hibernate.version}</version>
             </dependency>
             <!-- JPA -->
-            <dependency>
+           <!-- <dependency>
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-commons</artifactId>
                 <version>${spring-data.version}</version>
@@ -115,7 +116,7 @@
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-jpa</artifactId>
                 <version>${spring-data.version}</version>
-            </dependency>
+            </dependency>-->
             <!--日志-->
             <dependency>
                 <groupId>log4j</groupId>
