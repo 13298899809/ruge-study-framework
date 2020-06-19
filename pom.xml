@@ -12,6 +12,7 @@
         <module>ruge-spring</module>
         <module>ruge-my-spring</module>
         <module>ruge-security</module>
+        <module>ruge-mybatis-plus</module>
     </modules>
 
 
@@ -19,6 +20,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
 
+        <!--springboot-->
+        <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
         <junit.version>4.12</junit.version>
         <lombok.version>1.18.12</lombok.version>
         <!--5.2.6-->
@@ -30,22 +33,25 @@
         <!--数据库-->
         <mysql.version>5.1.48</mysql.version>
         <druid.version>1.1.22</druid.version>
-        <!--  <hibernate.version>5.2.11.Final</hibernate.version>-->
+        <!--orm-->
+        <mybatis-plus.version>3.3.2</mybatis-plus.version>
         <hibernate.version>5.0.7.Final</hibernate.version>
         <!--log-->
         <log4j.version>1.2.17</log4j.version>
         <log4j12.version>1.7.21</log4j12.version>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
+
     </properties>
 
 
     <dependencyManagement>
         <dependencies>
+            <!--springboot-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-parent</artifactId>
-                <version>2.3.0.RELEASE</version>
+                <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -54,47 +60,16 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
+                <version></version>
+            </dependency>
+            <!--orm框架-->
+            <!--mybatis-plus-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
             </dependency>
 
-            <!--spring-->
-           <!-- <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-aop</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-jdbc</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-orm</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-webmvc</artifactId>
-                <version>${spring.version}</version>
-            </dependency>-->
-            <!--aspectj-->
-         <!--   <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjrt</artifactId>
-                <version>${aspectj.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjweaver</artifactId>
-                <version>${aspectj.version}</version>
-            </dependency>-->
             <!--hibernate-->
             <dependency>
                 <groupId>org.hibernate</groupId>
@@ -107,16 +82,16 @@
                 <version>${hibernate.version}</version>
             </dependency>
             <!-- JPA -->
-           <!-- <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-commons</artifactId>
-                <version>${spring-data.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-jpa</artifactId>
-                <version>${spring-data.version}</version>
-            </dependency>-->
+            <!-- <dependency>
+                 <groupId>org.springframework.data</groupId>
+                 <artifactId>spring-data-commons</artifactId>
+                 <version>${spring-data.version}</version>
+             </dependency>
+             <dependency>
+                 <groupId>org.springframework.data</groupId>
+                 <artifactId>spring-data-jpa</artifactId>
+                 <version>${spring-data.version}</version>
+             </dependency>-->
             <!--日志-->
             <dependency>
                 <groupId>log4j</groupId>

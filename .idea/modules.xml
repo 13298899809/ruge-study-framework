@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ruge-my-spring/ruge-my-spring.iml" filepath="$PROJECT_DIR$/ruge-my-spring/ruge-my-spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ruge-mybatis-plus/ruge-mybatis-plus.iml" filepath="$PROJECT_DIR$/ruge-mybatis-plus/ruge-mybatis-plus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ruge-security/ruge-security.iml" filepath="$PROJECT_DIR$/ruge-security/ruge-security.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ruge-spring/ruge-spring.iml" filepath="$PROJECT_DIR$/ruge-spring/ruge-spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ruge-study-framework.iml" filepath="$PROJECT_DIR$/.idea/ruge-study-framework.iml" />
+    </modules>
+  </component>
+</project>
