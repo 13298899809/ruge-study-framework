@@ -22,6 +22,7 @@ public class BootUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private int money;
 
     private LocalDate birth = LocalDate.now();
     private LocalDateTime createTime = LocalDateTime.now();

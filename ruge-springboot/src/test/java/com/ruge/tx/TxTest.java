@@ -1,6 +1,5 @@
 package com.ruge.tx;
 
-import com.ruge.framework.aop.AopTransaction;
 import com.ruge.framework.tx.TransactionUtils;
 import com.ruge.service.TxService;
 import lombok.extern.slf4j.Slf4j;
@@ -44,48 +43,77 @@ public class TxTest {
     }
 
     /**
-     * 不使用事务
-     * 默认情况 只增加了一条数据
+     * 转账正常情况
+     * <p>
+     * 无事务
      */
     @Test
-    public void testNoTx() {
-        txService.save();
-        int i = 1 / 0;
-        txService.save();
+    public void testTransferNormalNoTx() {
+        txService.transferNormalNoTx();
     }
 
     /**
-     * 带事务的测试
-     * 需要将 {@link AopTransaction} 进行注释
+     * 转账异常
+     * <p>
+     * 无事务
      */
     @Test
-    public void testWithTx() {
-        TransactionStatus status = transactionUtils.begin();
-        try {
-            txService.save();
-            int i = 1 / 0;
-            txService.save();
-            transactionUtils.commit(status);
-        } catch (Exception e) {
-            e.printStackTrace();
-            transactionUtils.rollback();
-        }
+    public void testTransferAbnormalNoTx() {
+        txService.transferAbnormalNoTx();
     }
 
     /**
-     * aop事务
-     * 需要保留 {@link AopTransaction}
+     * 转账正常
+     * <p>
+     * 使用spring事务
      */
     @Test
-    public void testWithAopTx() {
-        txService.save();
+    public void testTransferNormalWithSpringTx() {
+        txService.transferNormalWithSpringTx();
     }
 
     /**
-     * 使用自定义注解实现事务
+     * 转账异常
+     * <p>
+     * spring事务
      */
     @Test
-    public void testWithRugeTx() {
-        txService.saveWithRugeTx();
+    public void transferAbnormalWithSpringTx() {
+        txService.transferAbnormalWithSpringTx();
     }
+
+//    /**
+//     * 带事务的测试
+//     * 需要将 {@link AopTransaction} 进行注释
+//     */
+//    @Test
+//    public void testWithTx() {
+//        TransactionStatus status = transactionUtils.begin();
+//        try {
+//            txService.save();
+//            int i = 1 / 0;
+//            txService.save();
+//            transactionUtils.commit(status);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            transactionUtils.rollback();
+//        }
+//    }
+//
+//    /**
+//     * aop事务
+//     * 需要保留 {@link AopTransaction}
+//     */
+//    @Test
+//    public void testWithAopTx() {
+//        txService.save();
+//    }
+//
+//    /**
+//     * 使用自定义注解实现事务
+//     */
+//    @Test
+//    public void testWithRugeTx() {
+//        txService.saveWithRugeTx();
+//    }
 }

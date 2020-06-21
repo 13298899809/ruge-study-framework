@@ -4,6 +4,7 @@ import com.ruge.entity.BootUser;
 import com.ruge.framework.annotation.RugeTransaction;
 import com.ruge.repository.BootUserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -22,12 +23,88 @@ public class TxService {
     @Resource
     private BootUserRepository bootUserRepository;
 
+    /**
+     * 初始化数据
+     */
     public void save() {
         BootUser bootUser = new BootUser();
-        bootUser.setName("张" + UUID.randomUUID());
+        bootUser.setName("圆圆");
+        bootUser.setMoney(1000);
         bootUserRepository.save(bootUser);
-        bootUser.setName("张" + UUID.randomUUID());
+        bootUser = new BootUser();
+        bootUser.setName("圈圈");
+        bootUser.setMoney(1000);
         bootUserRepository.save(bootUser);
+    }
+
+    /**
+     * 转账正常情况
+     * <p>
+     * 无事务
+     */
+    public void transferNormalNoTx() {
+        bootUserRepository.findByName("圆圆").ifPresent(e -> {
+            e.setMoney(e.getMoney() - 100);
+            bootUserRepository.save(e);
+        });
+
+        bootUserRepository.findByName("圈圈").ifPresent(e -> {
+            e.setMoney(e.getMoney() + 100);
+            bootUserRepository.save(e);
+        });
+    }
+
+    /**
+     * 转账异常
+     * <p>
+     * 无事务
+     */
+    public void transferAbnormalNoTx() {
+        bootUserRepository.findByName("圆圆").ifPresent(e -> {
+            e.setMoney(e.getMoney() - 100);
+            bootUserRepository.save(e);
+        });
+        int i = 2 / 0;
+        bootUserRepository.findByName("圈圈").ifPresent(e -> {
+            e.setMoney(e.getMoney() + 100);
+            bootUserRepository.save(e);
+        });
+    }
+
+    /**
+     * 转账正常
+     * <p>
+     * 使用spring事务
+     */
+    @Transactional
+    public void transferNormalWithSpringTx() {
+        bootUserRepository.findByName("圆圆").ifPresent(e -> {
+            e.setMoney(e.getMoney() - 100);
+            bootUserRepository.save(e);
+        });
+
+        bootUserRepository.findByName("圈圈").ifPresent(e -> {
+            e.setMoney(e.getMoney() + 100);
+            bootUserRepository.save(e);
+        });
+    }
+
+    /**
+     * 转账异常
+     * <p>
+     * spring事务
+     */
+    @Transactional
+    public void transferAbnormalWithSpringTx() {
+        bootUserRepository.findByName("圆圆").ifPresent(e -> {
+            e.setMoney(e.getMoney() - 100);
+            bootUserRepository.save(e);
+        });
+        int i = 2 / 0;
+        bootUserRepository.findByName("圈圈").ifPresent(e -> {
+            e.setMoney(e.getMoney() + 100);
+            bootUserRepository.save(e);
+        });
     }
 
     @RugeTransaction
