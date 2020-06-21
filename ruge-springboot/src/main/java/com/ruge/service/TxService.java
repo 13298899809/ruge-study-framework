@@ -1,6 +1,7 @@
-package com.ruge.service.tx;
+package com.ruge.service;
 
 import com.ruge.entity.BootUser;
+import com.ruge.framework.annotation.RugeTransaction;
 import com.ruge.repository.BootUserRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +22,22 @@ public class TxService {
     @Resource
     private BootUserRepository bootUserRepository;
 
-    public Map<String, Object> save() {
-        Map<String, Object> map = new HashMap<>();
+    public void save() {
         BootUser bootUser = new BootUser();
         bootUser.setName("张" + UUID.randomUUID());
-        BootUser save = bootUserRepository.save(bootUser);
-        map.put("save", save);
-        return map;
+        bootUserRepository.save(bootUser);
+        bootUser.setName("张" + UUID.randomUUID());
+        bootUserRepository.save(bootUser);
+    }
+
+    @RugeTransaction
+    public void saveWithRugeTx() {
+        BootUser bootUser = new BootUser();
+        bootUser.setName("张" + UUID.randomUUID());
+        bootUserRepository.save(bootUser);
+        int i = 1 / 0;
+        bootUser.setName("张" + UUID.randomUUID());
+        bootUserRepository.save(bootUser);
     }
 
     public Map<String, Object> delete(Long id) {
@@ -37,10 +47,8 @@ public class TxService {
         return map;
     }
 
-    public Map<String, Object> list() {
-        Map<String, Object> map = new HashMap<>();
+    public List<BootUser> list() {
         List<BootUser> all = bootUserRepository.findAll();
-        map.put("list", all);
-        return map;
+        return all;
     }
 }
