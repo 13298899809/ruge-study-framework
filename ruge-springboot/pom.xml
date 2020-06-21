@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ruge-mybatis-plus</artifactId>
+    <artifactId>ruge-springboot</artifactId>
 
     <dependencies>
         <dependency>
@@ -18,24 +18,24 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!--mybatis-plus-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-        <!--性能分析插件-->
-        <dependency>
-            <groupId>p6spy</groupId>
-            <artifactId>p6spy</artifactId>
-        </dependency>
-        <!--mysql-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <!--lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

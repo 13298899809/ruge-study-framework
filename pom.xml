@@ -13,6 +13,7 @@
         <module>ruge-my-spring</module>
         <module>ruge-security</module>
         <module>ruge-mybatis-plus</module>
+        <module>ruge-springboot</module>
     </modules>
 
 
@@ -41,7 +42,8 @@
         <log4j12.version>1.7.21</log4j12.version>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
-
+        <!--性能分析插件-->
+        <p6spy.version>3.9.0</p6spy.version>
     </properties>
 
 
@@ -60,7 +62,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version></version>
+                <version>${junit.version}</version>
             </dependency>
             <!--orm框架-->
             <!--mybatis-plus-->
@@ -69,29 +71,12 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
-
-            <!--hibernate-->
+            <!--性能分析插件-->
             <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-entitymanager</artifactId>
-                <version>${hibernate.version}</version>
+                <groupId>p6spy</groupId>
+                <artifactId>p6spy</artifactId>
+                <version>${p6spy.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>${hibernate.version}</version>
-            </dependency>
-            <!-- JPA -->
-            <!-- <dependency>
-                 <groupId>org.springframework.data</groupId>
-                 <artifactId>spring-data-commons</artifactId>
-                 <version>${spring-data.version}</version>
-             </dependency>
-             <dependency>
-                 <groupId>org.springframework.data</groupId>
-                 <artifactId>spring-data-jpa</artifactId>
-                 <version>${spring-data.version}</version>
-             </dependency>-->
             <!--日志-->
             <dependency>
                 <groupId>log4j</groupId>
@@ -107,12 +92,6 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>${log4j12.version}</version>
-            </dependency>
-            <!--mysql-->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.version}</version>
             </dependency>
             <!--druid-->
             <dependency>
@@ -146,4 +125,32 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
