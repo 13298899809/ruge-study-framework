@@ -4,12 +4,11 @@ import com.ruge.entity.BootUser;
 import com.ruge.framework.annotation.RugeTransaction;
 import com.ruge.repository.BootUserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -107,6 +106,8 @@ public class TxService {
         });
     }
 
+
+
     @RugeTransaction
     public void saveWithRugeTx() {
         BootUser bootUser = new BootUser();
@@ -117,12 +118,6 @@ public class TxService {
         bootUserRepository.save(bootUser);
     }
 
-    public Map<String, Object> delete(Long id) {
-        Map<String, Object> map = new HashMap<>();
-        bootUserRepository.deleteById(id);
-        map.put("delete", "success");
-        return map;
-    }
 
     public List<BootUser> list() {
         List<BootUser> all = bootUserRepository.findAll();
