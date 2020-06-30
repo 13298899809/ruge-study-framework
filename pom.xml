@@ -14,6 +14,7 @@
         <module>ruge-security</module>
         <module>ruge-mybatis-plus</module>
         <module>ruge-springboot</module>
+        <module>ruge-mq-kafka</module>
     </modules>
 
 
@@ -23,14 +24,11 @@
 
         <!--springboot-->
         <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
+        <spring-kafka.version>2.5.3.RELEASE</spring-kafka.version>
         <junit.version>4.12</junit.version>
         <lombok.version>1.18.12</lombok.version>
         <!--5.2.6-->
         <servlet.version>3.1.0</servlet.version>
-        <spring.version>5.1.4.RELEASE</spring.version>
-        <spring-data.version>2.1.4.RELEASE</spring-data.version>
-        <!--aspectj-->
-        <aspectj.version>1.9.5</aspectj.version>
         <!--数据库-->
         <mysql.version>5.1.48</mysql.version>
         <druid.version>1.1.22</druid.version>
@@ -44,6 +42,14 @@
         <logback.version>1.2.3</logback.version>
         <!--性能分析插件-->
         <p6spy.version>3.9.0</p6spy.version>
+        <!--apache工具类-->
+        <commons-lang3.version>3.10</commons-lang3.version>
+        <commons-collections4.version>4.4</commons-collections4.version>
+        <commons-compress.version>1.20</commons-compress.version>
+        <commons-math3.version>3.6.1</commons-math3.version>
+        <commons-fileupload.version>1.3.3</commons-fileupload.version>
+        <commons-beanutils.version>1.9.3</commons-beanutils.version>
+        <httpclient.version>4.5.12</httpclient.version>
     </properties>
 
 
@@ -57,7 +63,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
             <!--junit单元测试-->
             <dependency>
                 <groupId>junit</groupId>
@@ -122,6 +127,48 @@
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${servlet.version}</version>
+            </dependency>
+
+
+            <!--apache工具类-->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections4.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-compress -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>${commons-compress.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math3 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-math3</artifactId>
+                <version>${commons-math3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
