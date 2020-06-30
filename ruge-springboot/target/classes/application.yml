@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.20.24.130:3306/RUGE?useUnicode=true&characterEncoding=utf-8
+    username: fawblocseaoutdev
+    password: q6mc7eP9LSMuRXoo4vC4
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+
+logging:
+  level:
+    root: debug
