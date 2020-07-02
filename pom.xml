@@ -15,6 +15,7 @@
         <module>ruge-mybatis-plus</module>
         <module>ruge-springboot</module>
         <module>ruge-mq-kafka</module>
+        <module>ruge-datasource-druid</module>
     </modules>
 
 
@@ -102,6 +103,11 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
             <!--lombok-->
