@@ -4,6 +4,7 @@ import com.ruge.webservice.domain.Person;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebResult;
 import javax.jws.WebService;
 
 /**
@@ -18,9 +19,23 @@ public interface TestApiService {
     /**
      * 解析出的地址  http://localhost:8080/ws/testApiService?wsdl
      *
-     * @param person
+     * <xs:complexType name="insertPersonInfo">
+     * <xs:sequence>
+     * <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+     * </xs:sequence>
+     * </xs:complexType>
+     *
+     *
+     * <xs:complexType name="insertPersonInfoResponse">
+     * <xs:sequence>
+     * <xs:element minOccurs="0" name="return" type="tns:person"/>
+     * </xs:sequence>
+     * </xs:complexType>
+     *
+     * @param personName
      * @return
      */
-//    @WebMethod
-    Person insertPersonInfo(String person);
+    @WebMethod
+    @WebResult(name = "insertResult")
+    Person insertPersonInfo(@WebParam(name = "personName") String personName);
 }

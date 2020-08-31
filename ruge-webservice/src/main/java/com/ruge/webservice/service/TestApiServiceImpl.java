@@ -20,9 +20,9 @@ import java.util.List;
 //        portName = "10000")
 public class TestApiServiceImpl implements TestApiService {
     @Override
-    public Person insertPersonInfo(String person) {
-        System.out.println("服务端接口到了请求:person=" + person);
-        List<Person> list = JSONArray.parseArray(person, Person.class);
+    public Person insertPersonInfo(String personName) {
+        System.out.println("服务端接口到了请求:person=" + personName);
+        List<Person> list = JSONArray.parseArray(personName, Person.class);
         //TODO 逻辑处理
         return list.get(0);
     }

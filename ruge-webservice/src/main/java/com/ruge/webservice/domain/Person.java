@@ -1,7 +1,8 @@
 package com.ruge.webservice.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author ruge.wu
@@ -11,10 +12,15 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@ToString
+@XmlRootElement
 public class Person {
     private Integer id;
     private String name;
     private String niceName;
     private Integer age;
     private Double height;
+
+    public Person() {
+    }
 }
