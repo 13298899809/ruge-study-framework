@@ -17,6 +17,7 @@
         <module>ruge-mq-kafka</module>
         <module>ruge-datasource-druid</module>
         <module>ruge-webservice</module>
+        <module>ruge-redis</module>
     </modules>
 
 
