@@ -13,7 +13,7 @@ spring:
       #数据库方言
       hibernate.dialect: org.hibernate.dialect.MySQL55Dialect
       #是否打印sql
-      hibernate.show_sql: true
+      hibernate.show_sql: false
       #是否格式化sql
       hibernate.format_sql: true
       #指出什么操作产生的 SQL
