@@ -18,6 +18,7 @@
         <module>ruge-datasource-druid</module>
         <module>ruge-webservice</module>
         <module>ruge-redis</module>
+        <module>ruge-validator</module>
     </modules>
 
 
