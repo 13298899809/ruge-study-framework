@@ -38,8 +38,10 @@ public class KafkaProducer {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
             System.out.println("发送失败");
+            log.error("发送成功，e：{}", e.getMessage());
+            return null;
         }
-        System.out.println("发送成功");
+        log.info("发送成功，topic：{}，message:{},recordMetadata:{}", topic, message, recordMetadata);
         assert recordMetadata != null;
         /**
          * 偏移量：偏移量（Consumer Offset）是一种元数据，它是一个不断递增的整数值，用来记录消费者发生重平衡时的位置，以便用来恢复数据
@@ -48,9 +50,9 @@ public class KafkaProducer {
          * 副本：Kafka 中消息的备份又叫做 副本（Replica），副本的数量是可以配置的，Kafka 定义了两类副本：领导者副本（Leader Replica） 和 追随者副本（Follower Replica），前者对外提供服务，后者只是被动跟随
          * 重平衡：Rebalance。消费者组内某个消费者实例挂掉后，其他消费者实例自动重新分配订阅主题分区的过程。Rebalance 是 Kafka 消费者端实现高可用的重要手段
          */
-        System.out.println("partition:" + recordMetadata.partition());
-        System.out.println("offset:" + recordMetadata.offset());
-        System.out.println("topic:" + recordMetadata.topic());
+//        System.out.println("partition:" + recordMetadata.partition());
+//        System.out.println("offset:" + recordMetadata.offset());
+//        System.out.println("topic:" + recordMetadata.topic());
 
         return recordMetadata;
     }

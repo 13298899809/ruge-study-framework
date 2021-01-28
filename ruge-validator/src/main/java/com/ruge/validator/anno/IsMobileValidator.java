@@ -1,6 +1,7 @@
 package com.ruge.validator.anno;
 
-import org.junit.platform.commons.util.StringUtils;
+
+import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -15,6 +16,7 @@ import java.util.regex.Pattern;
  */
 public class IsMobileValidator implements ConstraintValidator<IsMobile, String> {
 
+    private boolean required = false;
 
     /**
      * Initializes the validator in preparation for
@@ -31,7 +33,7 @@ public class IsMobileValidator implements ConstraintValidator<IsMobile, String> 
      */
     @Override
     public void initialize(IsMobile constraintAnnotation) {
-
+        required = constraintAnnotation.required();
     }
 
     /**
@@ -47,9 +49,14 @@ public class IsMobileValidator implements ConstraintValidator<IsMobile, String> 
      */
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+        /*是否必填*/
+        if (!required && StringUtils.isEmpty(value)) {
+            return true;
+        }
+
         boolean flag = false;
         String regex = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0,5-9]))\\d{8}$";
-        if (StringUtils.isBlank(value) || value.length() != 11) {
+        if (StringUtils.isEmpty(value) || value.length() != 11) {
             flag = false;
             System.out.println("手机号应为11位数");
         } else {

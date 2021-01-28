@@ -16,6 +16,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Constraint(validatedBy = {IsMobileValidator.class})
 public @interface IsMobile {
+
+    boolean required() default true;
+
     String message() default "手机号不合法";
 
     Class<?>[] groups() default {};

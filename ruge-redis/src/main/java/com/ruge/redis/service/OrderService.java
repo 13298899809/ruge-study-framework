@@ -4,7 +4,9 @@ import com.ruge.redis.model.OrderEntity;
 import com.ruge.redis.model.ProductEntity;
 import com.ruge.redis.repository.OrderRepository;
 import com.ruge.redis.repository.ProductRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 嘿丷如歌
@@ -20,6 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Description:
  * @date 2020/9/26 9:20
  */
+@Slf4j
 @Service
 public class OrderService {
     @Resource
@@ -30,11 +34,20 @@ public class OrderService {
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;
+    @Resource
+    private RedisTemplate redisTemplate;
 
     public static ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap();
 
     @PostConstruct
     public void init() {
+        log.info("========================================");
+        redisTemplate.opsForHash().put("key1", "item1", "value1");
+        redisTemplate.opsForHash().put("key2", "item2", "value2");
+        redisTemplate.opsForHash().put("key3", "item3", "value3");
+        redisTemplate.opsForHash().put("key4", "item4", "value4");
+        redisTemplate.expire("key1", 4, TimeUnit.DAYS);
+
         productRepository.findAll().forEach(e -> {
             stringRedisTemplate.opsForValue().set("PRODUCT_" + e.getId(), e.getStock() + "");
         });

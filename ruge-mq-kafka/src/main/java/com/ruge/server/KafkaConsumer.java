@@ -1,5 +1,6 @@
 package com.ruge.server;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -12,16 +13,22 @@ import java.util.List;
  * @ClassName Consumer
  * @date 2020.06.29 15:14
  */
+@Slf4j
 @Component
 public class KafkaConsumer {
 
     /**
      * 有消息就读取,只读取消息value
      */
-    @KafkaListener(topics = {"springboot-topic1"})
-    public void receiveMessage(String message) {
+    @KafkaListener(topics = {"hw1-msg_push_jpush"})
+    public void receiveMessage(Object message) {
         //收到通道的消息之后执行秒杀操作
-        System.out.println(message);
+        log.error("hw1-msg_push_jpush:{}", message);
+    }
+
+    @KafkaListener(topics = {"msg_push_jpush"})
+    public void receiveMessage2(Object message) {
+        log.error("msg_push_jpush:{}", message);
     }
 
     /**
