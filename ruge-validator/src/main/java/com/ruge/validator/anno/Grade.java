@@ -1,4 +1,4 @@
-package com.ruge.validator;
+package com.ruge.validator.anno;
 
 import lombok.Data;
 

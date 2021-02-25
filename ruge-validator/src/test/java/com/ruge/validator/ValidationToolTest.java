@@ -1,13 +1,16 @@
 package com.ruge.validator;
 
 
+import com.ruge.validator.anno.Grade;
+import com.ruge.validator.anno.UserInfo;
+import com.ruge.validator.anno.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.util.Arrays;
 import org.hibernate.validator.HibernateValidator;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.Resource;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -23,7 +26,8 @@ public class ValidationToolTest {
     private Validator validator;
     private ExecutableValidator executableValidator;
     private UserInfo userInfo = new UserInfo();
-
+    @Resource
+    private UserService userService;
     @Before
     public void initValidator() {
         validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -38,13 +42,7 @@ public class ValidationToolTest {
 
     @Test
     public void test1() {
-        /*
-         * 分组校验
-         */
-        Set<ConstraintViolation<UserInfo>> validate = validator.validate(userInfo, UserInfo.Update.class, Default.class);
-        validate.forEach(e -> {
-            log.info("属性:{},提示:{},模板:{}", e.getPropertyPath(), e.getMessage(), e.getMessageTemplate());
-        });
+        userService.init();
     }
 
     /**

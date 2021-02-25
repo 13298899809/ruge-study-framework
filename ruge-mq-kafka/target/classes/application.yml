@@ -1,11 +1,18 @@
 spring:
   kafka:
-    bootstrap-servers: 172.20.24.129:9092
+    bootstrap-servers: localhost:9092
     consumer:
-      group-id: 0
+      key-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      max-poll-records: 200
+      heartbeat-interval: 9000
+      group-id: jpush
       enable-auto-commit: true
       auto-offset-reset: earliest
     producer:
       batch-size: 16384
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       retries: 10
+
+server:
+  port: 8081

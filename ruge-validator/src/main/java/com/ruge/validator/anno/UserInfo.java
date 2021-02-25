@@ -1,6 +1,5 @@
-package com.ruge.validator;
+package com.ruge.validator.anno;
 
-import com.ruge.validator.anno.IsMobile;
 import lombok.Data;
 
 import javax.validation.Valid;
