@@ -22,11 +22,17 @@ public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    /*产品名称*/
+    /**
+     * 产品名称
+     */
     private String name;
-    /*产品价格*/
+    /**
+     * 产品价格
+     */
     private int price;
-    /*产品库存*/
+    /**
+     * 产品库存
+     */
     private int stock;
 
     private String pic;

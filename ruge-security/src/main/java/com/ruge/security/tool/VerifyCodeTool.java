@@ -14,13 +14,17 @@ import java.util.Random;
  * @date 2020.07.03 10:13
  */
 public class VerifyCodeTool {
-    private static int width = 100;// 生成验证码图片的宽度
-    private static int height = 50;// 生成验证码图片的高度
+    // 生成验证码图片的宽度
+    private static int width = 100;
+    // 生成验证码图片的高度
+    private static int height = 50;
     private static String[] fontNames = {"宋体", "楷体", "隶书", "微软雅黑"};
-    private static Color bgColor = new Color(255, 255, 255);// 定义验证码图片的背景颜色为白色
+    // 定义验证码图片的背景颜色为白色
+    private static Color bgColor = new Color(255, 255, 255);
     private static Random random = new Random();
     private static String codes = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static String text;// 记录随机字符串
+    // 记录随机字符串
+    private static String text;
 
     /**
      * 获取一个随意颜色
@@ -63,7 +67,8 @@ public class VerifyCodeTool {
     private static BufferedImage createImage() {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = (Graphics2D) image.getGraphics();
-        g2.setColor(bgColor);// 设置验证码图片的背景颜色
+        // 设置验证码图片的背景颜色
+        g2.setColor(bgColor);
         g2.fillRect(0, 0, width, height);
         return image;
     }

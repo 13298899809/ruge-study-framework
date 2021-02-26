@@ -75,13 +75,13 @@ public class AdvisedSupport {
 
         try {
 
-            methodCache = new HashMap<Method, List<Object>>();
+            methodCache = new HashMap<>(16);
             Pattern pattern = Pattern.compile(pointCut);
 
 
 
             Class aspectClass = Class.forName(this.config.getAspectClass());
-            Map<String,Method> aspectMethods = new HashMap<String,Method>();
+            Map<String,Method> aspectMethods = new HashMap<>(16);
             for (Method m : aspectClass.getMethods()) {
                 aspectMethods.put(m.getName(),m);
             }

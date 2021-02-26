@@ -31,7 +31,7 @@ public class JwtUtils {
     public static String generateTokenExpireInMinutes(Object userInfo, PrivateKey privateKey, int expire) {
         return Jwts.builder()
                 .claim(JWT_PAYLOAD_USER_KEY, JsonUtils.toString(userInfo))
-                .setId(createJTI())
+                .setId(createJti())
                 .setExpiration(DateTime.now().plusMinutes(expire).toDate())
                 .signWith(privateKey, SignatureAlgorithm.RS256)
                 .compact();
@@ -48,7 +48,7 @@ public class JwtUtils {
     public static String generateTokenExpireInSeconds(Object userInfo, PrivateKey privateKey, int expire) {
         return Jwts.builder()
                 .claim(JWT_PAYLOAD_USER_KEY, JsonUtils.toString(userInfo))
-                .setId(createJTI())
+                .setId(createJti())
                 .setExpiration(DateTime.now().plusSeconds(expire).toDate())
                 .signWith(privateKey, SignatureAlgorithm.RS256)
                 .compact();
@@ -65,7 +65,7 @@ public class JwtUtils {
         return Jwts.parser().setSigningKey(publicKey).parseClaimsJws(token);
     }
 
-    private static String createJTI() {
+    private static String createJti() {
         return new String(Base64.getEncoder().encode(UUID.randomUUID().toString().getBytes()));
     }
 

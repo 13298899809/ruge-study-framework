@@ -29,15 +29,19 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ApplicationContext extends DefaultListableBeanFactory implements BeanFactory {
 
-    private String [] configLoactions;
+    private String[] configLoactions;
     private BeanDefinitionReader reader;
 
-    //单例的IOC容器缓存
-    private Map<String,Object> factoryBeanObjectCache = new ConcurrentHashMap<String, Object>();
-    //通用的IOC容器
-    private Map<String,BeanWrapper> factoryBeanInstanceCache = new ConcurrentHashMap<String, BeanWrapper>();
+    /**
+     * 单例的IOC容器缓存
+     */
+    private Map<String, Object> factoryBeanObjectCache = new ConcurrentHashMap<>();
+    /**
+     * 通用的IOC容器
+     */
+    private Map<String, BeanWrapper> factoryBeanInstanceCache = new ConcurrentHashMap<>();
 
-    public ApplicationContext(String... configLoactions){
+    public ApplicationContext(String... configLoactions) {
         this.configLoactions = configLoactions;
         try {
             refresh();
@@ -48,7 +52,7 @@ public class ApplicationContext extends DefaultListableBeanFactory implements Be
 
 
     @Override
-    public void refresh() throws Exception{
+    public void refresh() throws Exception {
         //1、定位，定位配置文件
         reader = new BeanDefinitionReader(this.configLoactions);
 
@@ -62,11 +66,13 @@ public class ApplicationContext extends DefaultListableBeanFactory implements Be
         doAutowrited();
     }
 
-    //只处理非延时加载的情况
+    /**
+     * 只处理非延时加载的情况
+     */
     private void doAutowrited() {
         for (Map.Entry<String, BeanDefinition> beanDefinitionEntry : super.beanDefinitionMap.entrySet()) {
             String beanName = beanDefinitionEntry.getKey();
-            if(!beanDefinitionEntry.getValue().isLazyInit()) {
+            if (!beanDefinitionEntry.getValue().isLazyInit()) {
                 try {
                     getBean(beanName);
                 } catch (Exception e) {
@@ -78,24 +84,33 @@ public class ApplicationContext extends DefaultListableBeanFactory implements Be
 
     private void doRegisterBeanDefinition(List<BeanDefinition> beanDefinitions) throws Exception {
 
-        for (BeanDefinition beanDefinition: beanDefinitions) {
-            if(super.beanDefinitionMap.containsKey(beanDefinition.getFactoryBeanName())){
+        for (BeanDefinition beanDefinition : beanDefinitions) {
+            if (super.beanDefinitionMap.containsKey(beanDefinition.getFactoryBeanName())) {
                 throw new Exception("The “" + beanDefinition.getFactoryBeanName() + "” is exists!!");
             }
-            super.beanDefinitionMap.put(beanDefinition.getFactoryBeanName(),beanDefinition);
+            super.beanDefinitionMap.put(beanDefinition.getFactoryBeanName(), beanDefinition);
         }
         //到这里为止，容器初始化完毕
     }
+
+    @Override
     public Object getBean(Class<?> beanClass) throws Exception {
         return getBean(beanClass.getName());
     }
 
-    //依赖注入，从这里开始，通过读取BeanDefinition中的信息
-    //然后，通过反射机制创建一个实例并返回
-    //Spring做法是，不会把最原始的对象放出去，会用一个BeanWrapper来进行一次包装
-    //装饰器模式：
-    //1、保留原来的OOP关系
-    //2、我需要对它进行扩展，增强（为了以后AOP打基础）
+    /**
+     * 依赖注入，从这里开始，通过读取BeanDefinition中的信息
+     * 然后，通过反射机制创建一个实例并返回
+     * Spring做法是，不会把最原始的对象放出去，会用一个BeanWrapper来进行一次包装
+     * 装饰器模式：
+     * 1、保留原来的OOP关系
+     * 2、我需要对它进行扩展，增强（为了以后AOP打基础）
+     *
+     * @param beanName beanName
+     * @return bean
+     * @throws Exception
+     */
+    @Override
     public Object getBean(String beanName) throws Exception {
 
         BeanDefinition gpBeanDefinition = this.beanDefinitionMap.get(beanName);
@@ -105,9 +120,9 @@ public class ApplicationContext extends DefaultListableBeanFactory implements Be
         //工厂模式 + 策略模式
         BeanPostProcessor postProcessor = new BeanPostProcessor();
 
-        postProcessor.postProcessBeforeInitialization(instance,beanName);
+        postProcessor.postProcessBeforeInitialization(instance, beanName);
 
-        instance = instantiateBean(beanName,gpBeanDefinition);
+        instance = instantiateBean(beanName, gpBeanDefinition);
 
         //3、把这个对象封装到BeanWrapper中
         BeanWrapper beanWrapper = new BeanWrapper(instance);
@@ -120,12 +135,12 @@ public class ApplicationContext extends DefaultListableBeanFactory implements Be
 //        //先有鸡还是先有蛋的问题，一个方法是搞不定的，要分两次
 
         //2、拿到BeanWraoper之后，把BeanWrapper保存到IOC容器中去
-        this.factoryBeanInstanceCache.put(beanName,beanWrapper);
+        this.factoryBeanInstanceCache.put(beanName, beanWrapper);
 
-        postProcessor.postProcessAfterInitialization(instance,beanName);
+        postProcessor.postProcessAfterInitialization(instance, beanName);
 
 //        //3、注入
-        populateBean(beanName,new BeanDefinition(),beanWrapper);
+        populateBean(beanName, new BeanDefinition(), beanWrapper);
 
 
         return this.factoryBeanInstanceCache.get(beanName).getWrappedInstance();
@@ -138,19 +153,21 @@ public class ApplicationContext extends DefaultListableBeanFactory implements Be
 
         Class<?> clazz = gpBeanWrapper.getWrappedClass();
         //判断只有加了注解的类，才执行依赖注入
-        if(!(clazz.isAnnotationPresent(Controller.class) || clazz.isAnnotationPresent(Service.class))){
+        if (!(clazz.isAnnotationPresent(Controller.class) || clazz.isAnnotationPresent(Service.class))) {
             return;
         }
 
         //获得所有的fields
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
-            if(!field.isAnnotationPresent(Autowired.class)){ continue;}
+            if (!field.isAnnotationPresent(Autowired.class)) {
+                continue;
+            }
 
             Autowired autowired = field.getAnnotation(Autowired.class);
 
-            String autowiredBeanName =  autowired.value().trim();
-            if("".equals(autowiredBeanName)){
+            String autowiredBeanName = autowired.value().trim();
+            if ("".equals(autowiredBeanName)) {
                 autowiredBeanName = field.getType().getName();
             }
 
@@ -159,11 +176,13 @@ public class ApplicationContext extends DefaultListableBeanFactory implements Be
 
             try {
                 //为什么会为NULL，先留个坑
-                if(this.factoryBeanInstanceCache.get(autowiredBeanName) == null){ continue; }
+                if (this.factoryBeanInstanceCache.get(autowiredBeanName) == null) {
+                    continue;
+                }
 //                if(instance == null){
 //                    continue;
 //                }
-                field.set(instance,this.factoryBeanInstanceCache.get(autowiredBeanName).getWrappedInstance());
+                field.set(instance, this.factoryBeanInstanceCache.get(autowiredBeanName).getWrappedInstance());
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -181,9 +200,9 @@ public class ApplicationContext extends DefaultListableBeanFactory implements Be
         try {
 //            gpBeanDefinition.getFactoryBeanName()
             //假设默认就是单例,细节暂且不考虑，先把主线拉通
-            if(this.factoryBeanObjectCache.containsKey(className)){
+            if (this.factoryBeanObjectCache.containsKey(className)) {
                 instance = this.factoryBeanObjectCache.get(className);
-            }else {
+            } else {
                 Class<?> clazz = Class.forName(className);
                 instance = clazz.newInstance();
 
@@ -192,14 +211,14 @@ public class ApplicationContext extends DefaultListableBeanFactory implements Be
                 config.setTarget(instance);
 
                 //符合PointCut的规则的话，闯将代理对象
-                if(config.pointCutMatch()) {
+                if (config.pointCutMatch()) {
                     instance = createProxy(config).getProxy();
                 }
 
-                this.factoryBeanObjectCache.put(className,instance);
-                this.factoryBeanObjectCache.put(gpBeanDefinition.getFactoryBeanName(),instance);
+                this.factoryBeanObjectCache.put(className, instance);
+                this.factoryBeanObjectCache.put(gpBeanDefinition.getFactoryBeanName(), instance);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -209,7 +228,7 @@ public class ApplicationContext extends DefaultListableBeanFactory implements Be
     private AopProxy createProxy(AdvisedSupport config) {
 
         Class targetClass = config.getTargetClass();
-        if(targetClass.getInterfaces().length > 0){
+        if (targetClass.getInterfaces().length > 0) {
             return new JdkDynamicAopProxy(config);
         }
         return new CglibAopProxy(config);
@@ -227,14 +246,14 @@ public class ApplicationContext extends DefaultListableBeanFactory implements Be
     }
 
     public String[] getBeanDefinitionNames() {
-        return this.beanDefinitionMap.keySet().toArray(new  String[this.beanDefinitionMap.size()]);
+        return this.beanDefinitionMap.keySet().toArray(new String[this.beanDefinitionMap.size()]);
     }
 
-    public int getBeanDefinitionCount(){
+    public int getBeanDefinitionCount() {
         return this.beanDefinitionMap.size();
     }
 
-    public Properties getConfig(){
+    public Properties getConfig() {
         return this.reader.getConfig();
     }
 }

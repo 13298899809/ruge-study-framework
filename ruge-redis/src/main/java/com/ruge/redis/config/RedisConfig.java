@@ -21,20 +21,18 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 
 import javax.annotation.Resource;
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @author 嘿丷如歌
  * @version V1.0
  * @Description:
  * @date 2020/9/19 22:47
+ * <p>
+ * 开启全局redis session管理（拦截器） @EnableRedisHttpSession
+ * 开启缓存注解 @EnableCaching
  */
 @SpringBootConfiguration
 @EnableCaching
-// 开启全局redis session管理（拦截器）
 @EnableRedisHttpSession
 public class RedisConfig extends CachingConfigurerSupport {
 
@@ -42,47 +40,43 @@ public class RedisConfig extends CachingConfigurerSupport {
     private RedisConnectionFactory redisConnectionFactory;
 
     @Bean
+    @Override
     public CacheManager cacheManager() {
-        // 生成一个默认配置，通过config对象即可对缓存进行自定义配置
-        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
-        // 设置缓存的默认过期时间，也是使用Duration设置
-        config = config.entryTtl(Duration.ofMinutes(1))
-                // 设置 key为string序列化
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                // 设置value为json序列化
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer()))
-                // 不缓存空值
-                .disableCachingNullValues();
-
-//        // 设置一个初始化的缓存空间set集合
-//        Set<String> cacheNames = new HashSet<>();
-//        cacheNames.add("timeGroup");
-//        cacheNames.add("user");
-//
-//        // 对每个缓存空间应用不同的配置
-//        Map<String, RedisCacheConfiguration> configMap = new HashMap<>();
-//        configMap.put("timeGroup", config);
-//        configMap.put("user", config.entryTtl(Duration.ofSeconds(120)));
 
         // 更改值的序列化方式，否则在Redis可视化软件中会显示乱码。默认为JdkSerializationRedisSerializer
         RedisSerializationContext.SerializationPair<Object> pair = RedisSerializationContext.SerializationPair
                 .fromSerializer(new GenericJackson2JsonRedisSerializer());
-        RedisCacheConfiguration defaultCacheConfig = RedisCacheConfiguration
-                .defaultCacheConfig()
-                .serializeValuesWith(pair)      // 设置序列化方式
-                .entryTtl(Duration.ofHours(1)); // 设置过期时间
 
-        // 使用自定义的缓存配置初始化一个cacheManager
-        RedisCacheManager cacheManager = RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
-                // 一定要先调用该方法设置初始化的缓存名，再初始化相关的配置
-//                .initialCacheNames(cacheNames)
-//                .withInitialCacheConfigurations(configMap)
-                .cacheDefaults(defaultCacheConfig)
+        // 生成一个默认配置，通过config对象即可对缓存进行自定义配置
+        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
+        // 设置缓存的默认过期时间，也是使用Duration设置  30分钟
+        config = config.entryTtl(Duration.ofMinutes(30L))
+                // 设置 key为string序列化
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                // 设置value为json序列化
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer()))
+                // 设置序列化方式
+                .serializeValuesWith(pair)
+                // 不缓存空值
+                .disableCachingNullValues();
+
+        return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
+                .cacheDefaults(config)
                 .build();
-
-        return cacheManager;
     }
 
+
+    /**
+     * JdkSerializationRedisSerializer：使用JDK的序列化手段(serializable接口，ObjectInputStrean，ObjectOutputStream)，数据以字节流存储，jdk序列化和反序列化数据
+     * <p>
+     * StringRedisSerializer：字符串编码，数据以string存储
+     * <p>
+     * JacksonJsonRedisSerializer：json格式存储
+     * <p>
+     * OxmSerializer：xml格式存储
+     *
+     * @return redis 序列化
+     */
     @Bean
     public RedisTemplate<String, Object> redisTemplate() {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
@@ -101,12 +95,15 @@ public class RedisConfig extends CachingConfigurerSupport {
 
 
     /**
-     * @return json序列化
+     * json序列化
+     * <p>
+     * 使用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值
+     *
+     * @return 自定义redis序列化
      */
     @Bean
     public RedisSerializer<Object> jackson2JsonRedisSerializer() {
-        //使用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值
-        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<Object>(Object.class);
+        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         mapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance,

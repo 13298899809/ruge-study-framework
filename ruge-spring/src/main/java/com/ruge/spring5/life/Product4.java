@@ -7,6 +7,7 @@ import org.springframework.beans.factory.InitializingBean;
 /**
  * 生命周期 创建完对象后会调用afterPropertiesSet()方法  进行一些初始化操作
  * 生命周期 创建完对象后会调用destroy()方法  进行一些销毁操作
+ * @author ruge.wu
  */
 public class Product4 implements InitializingBean, DisposableBean {
     public Product4() {

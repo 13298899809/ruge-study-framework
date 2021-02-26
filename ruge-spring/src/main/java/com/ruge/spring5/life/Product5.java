@@ -3,6 +3,9 @@ package com.ruge.spring5.life;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
 
+/**
+ * @author ruge.wu
+ */
 public class Product5 {
     public Product5() {
         System.out.println("Product5 无参构造方法");

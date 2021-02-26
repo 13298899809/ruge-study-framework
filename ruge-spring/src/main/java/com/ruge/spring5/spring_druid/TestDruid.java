@@ -3,8 +3,11 @@ package com.ruge.spring5.spring_druid;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+/**
+ * @author ruge.wu
+ */
 public class TestDruid {
-    public static final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/spring-druid.xml");
+    public static final ClassPathXmlApplicationContext CONTEXT = new ClassPathXmlApplicationContext("/spring-druid.xml");
 
     /**
      * 读取外部文件
@@ -12,6 +15,6 @@ public class TestDruid {
      */
     @Test
     public void test1() {
-        System.out.println(context.getBean("conn"));
+        System.out.println(CONTEXT.getBean("conn"));
     }
 }

@@ -25,7 +25,9 @@ public class MethodInvocation implements JoinPoint {
 
     private Map<String, Object> userAttributes;
 
-    //定义一个索引，从-1开始来记录当前拦截器执行的位置
+    /**
+     * 定义一个索引，从-1开始来记录当前拦截器执行的位置
+     */
     private int currentInterceptorIndex = -1;
 
     public MethodInvocation(
@@ -73,11 +75,11 @@ public class MethodInvocation implements JoinPoint {
     public Method getMethod() {
         return this.method;
     }
-
+    @Override
     public void setUserAttribute(String key, Object value) {
         if (value != null) {
             if (this.userAttributes == null) {
-                this.userAttributes = new HashMap<String, Object>();
+                this.userAttributes = new HashMap<>(16);
             }
             this.userAttributes.put(key, value);
         } else {
@@ -87,7 +89,7 @@ public class MethodInvocation implements JoinPoint {
         }
     }
 
-
+    @Override
     public Object getUserAttribute(String key) {
         return (this.userAttributes != null ? this.userAttributes.get(key) : null);
     }

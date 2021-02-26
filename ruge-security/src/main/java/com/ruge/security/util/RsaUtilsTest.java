@@ -5,6 +5,9 @@ import java.security.PublicKey;
 
 import static org.junit.Assert.*;
 
+/**
+ * @author ruge.wu
+ */
 public class RsaUtilsTest {
     private String privateFilePath = "D:\\auth_key\\id_key";
     private String publicFilePath = "D:\\auth_key\\id_key.pub";

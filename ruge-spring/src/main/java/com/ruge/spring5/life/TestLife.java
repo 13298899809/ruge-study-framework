@@ -3,8 +3,11 @@ package com.ruge.spring5.life;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+/**
+ * @author ruge.wu
+ */
 public class TestLife {
-    public static final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/application.xml");
+    public static final ClassPathXmlApplicationContext CONTEXT = new ClassPathXmlApplicationContext("/application.xml");
     /*生命周期---创建阶段~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     /**
@@ -22,7 +25,7 @@ public class TestLife {
      */
     @Test
     public void test2() {
-        Object product2 = context.getBean("product2");
+        Object product2 = CONTEXT.getBean("product2");
     }
 
     /**
@@ -32,7 +35,7 @@ public class TestLife {
      */
     @Test
     public void test3() {
-        context.getBean("product3");
+        CONTEXT.getBean("product3");
     }
     /*生命周期---创建阶段~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -46,8 +49,8 @@ public class TestLife {
      */
     @Test
     public void test4() {
-        context.getBean("product4");
-        context.close();
+        CONTEXT.getBean("product4");
+        CONTEXT.close();
     }
 
     /**
@@ -56,8 +59,8 @@ public class TestLife {
      */
     @Test
     public void test5() {
-        context.getBean("product5");
-        context.close();
+        CONTEXT.getBean("product5");
+        CONTEXT.close();
     }
 
 

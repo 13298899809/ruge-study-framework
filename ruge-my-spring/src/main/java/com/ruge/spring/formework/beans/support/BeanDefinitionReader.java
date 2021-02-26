@@ -22,7 +22,9 @@ public class BeanDefinitionReader {
 
     private Properties config = new Properties();
 
-    //固定配置文件中的key，相对于xml的规范
+    /**
+     * 固定配置文件中的key，相对于xml的规范
+     */
     private final String SCAN_PACKAGE = "scanPackage";
 
     public Properties getConfig() {
@@ -101,7 +103,13 @@ public class BeanDefinitionReader {
         return result;
     }
 
-    //把每一个配信息解析成一个BeanDefinition
+    /**
+     * 把每一个配信息解析成一个BeanDefinition
+     *
+     * @param factoryBeanName factoryBeanName
+     * @param beanClassName   beanClassName
+     * @return {@link BeanDefinition}
+     */
     private BeanDefinition doCreateBeanDefinition(String factoryBeanName, String beanClassName) {
         BeanDefinition beanDefinition = new BeanDefinition();
         beanDefinition.setBeanClassName(beanClassName);
@@ -109,13 +117,17 @@ public class BeanDefinitionReader {
         return beanDefinition;
     }
 
-    //如果类名本身是小写字母，确实会出问题
-    //但是我要说明的是：这个方法是我自己用，private的
-    //传值也是自己传，类也都遵循了驼峰命名法
-    //默认传入的值，存在首字母小写的情况，也不可能出现非字母的情况
-
-    //为了简化程序逻辑，就不做其他判断了，大家了解就OK
-    //其实用写注释的时间都能够把逻辑写完了
+    /**
+     * 如果类名本身是小写字母，确实会出问题
+     * 但是我要说明的是：这个方法是我自己用，private的
+     * 传值也是自己传，类也都遵循了驼峰命名法
+     * 默认传入的值，存在首字母小写的情况，也不可能出现非字母的情况
+     * 为了简化程序逻辑，就不做其他判断了，大家了解就OK
+     * 其实用写注释的时间都能够把逻辑写完了
+     *
+     * @param simpleName simpleName
+     * @return class类名
+     */
     private String toLowerFirstCase(String simpleName) {
         char[] chars = simpleName.toCharArray();
         //之所以加，是因为大小写字母的ASCII码相差32，

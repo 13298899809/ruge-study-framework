@@ -75,7 +75,7 @@ public class TxService {
      * <p>
      * 使用spring事务
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void transferNormalWithSpringTx() {
         bootUserRepository.findByName("圆圆").ifPresent(e -> {
             e.setMoney(e.getMoney() - 100);
@@ -93,7 +93,7 @@ public class TxService {
      * <p>
      * spring事务
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void transferAbnormalWithSpringTx() {
         bootUserRepository.findByName("圆圆").ifPresent(e -> {
             e.setMoney(e.getMoney() - 100);

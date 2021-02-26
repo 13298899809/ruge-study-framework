@@ -44,7 +44,7 @@ public class TxPropagationService {
      * <p>
      * 以非事务方式运行，如果当前存在事务，则抛出异常，即父级方法必须无事务
      */
-    @Transactional(propagation = Propagation.NEVER)
+    @Transactional(propagation = Propagation.NEVER,rollbackFor = Exception.class)
     public void xiaodi1() {
         BootUser bootUser = new BootUser();
         bootUser.setName("小弟1");
@@ -53,7 +53,7 @@ public class TxPropagationService {
         int i = 2 / 0;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void dage2() {
         BootUser bootUser = new BootUser();
         bootUser.setName("大哥2");
@@ -81,7 +81,7 @@ public class TxPropagationService {
         int i = 2 / 0;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void dage3() {
         BootUser bootUser = new BootUser();
         bootUser.setName("大哥3");
@@ -98,7 +98,7 @@ public class TxPropagationService {
      * 如果当前存在事务，则加入事务
      * 如果当前不存在事务，则以非事务方式运行，这个和不写没区别
      */
-    @Transactional(propagation = Propagation.SUPPORTS)
+    @Transactional(propagation = Propagation.SUPPORTS,rollbackFor = Exception.class)
     public void xiaodi3() {
         BootUser bootUser = new BootUser();
         bootUser.setName("小弟3");
@@ -107,7 +107,7 @@ public class TxPropagationService {
         int i = 2 / 0;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void dage4() {
         // 暂时将 代码注释 避免由于失误挂起导致的锁死
         xiaodi4();
@@ -122,7 +122,7 @@ public class TxPropagationService {
      * <p>
      * 父子事务独立运行 互不影响
      */
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
     public void xiaodi4() {
         BootUser bootUser = new BootUser();
         bootUser.setName("小弟4");
@@ -131,7 +131,7 @@ public class TxPropagationService {
     }
 
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void dage5() {
         BootUser bootUser = new BootUser();
         bootUser.setName("大哥5");
@@ -149,7 +149,7 @@ public class TxPropagationService {
      * 如果它异常，父级可以捕获它的异常而不进行回滚，正常提交
      * 但如果父级异常，它必然回滚，这就是和 REQUIRES_NEW 的区别
      */
-    @Transactional(propagation = Propagation.NESTED)
+    @Transactional(propagation = Propagation.NESTED,rollbackFor = Exception.class)
     public void xiaodi5() {
         BootUser bootUser = new BootUser();
         bootUser.setName("小弟5");

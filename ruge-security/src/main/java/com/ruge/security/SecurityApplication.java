@@ -1,8 +1,5 @@
 package com.ruge.security;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,13 +11,13 @@ import java.util.Map;
  */
 public class SecurityApplication {
     public static void main(String[] args) {
-        Map n = new HashMap();
+        Map n = new HashMap(16);
         n.put("code",1);
-        System.out.println(isKSSBlack(n));
+        System.out.println(isKssBlack(n));
     }
 
 
-    public static Boolean isKSSBlack(Map map) {
+    public static Boolean isKssBlack(Map map) {
         return map == null || !"10000".equals(map.get("code"));
     }
 }

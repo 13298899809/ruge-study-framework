@@ -6,17 +6,20 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
+/**
+ * @author ruge.wu
+ */
 public class UserAccountService {
-    public static final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/spring-tx.xml");
-    public static final EntityManagerFactory entityManagerFactory = (EntityManagerFactory) context.getBean("entityManagerFactory");
-    public static final EntityManager entityManager = entityManagerFactory.createEntityManager();
+    public static final ClassPathXmlApplicationContext CONTEXT = new ClassPathXmlApplicationContext("/spring-tx.xml");
+    public static final EntityManagerFactory ENTITYMANAGERFACTORY = (EntityManagerFactory) CONTEXT.getBean("entityManagerFactory");
+    public static final EntityManager ENTITYMANAGER = ENTITYMANAGERFACTORY.createEntityManager();
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void save() {
         UserAccount userAccount = new UserAccount();
         userAccount.setName("张三");
         userAccount.setMoney(123);
-        entityManager.persist(userAccount);
-        entityManager.flush();
+        ENTITYMANAGER.persist(userAccount);
+        ENTITYMANAGER.flush();
     }
 }

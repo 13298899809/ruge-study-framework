@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 /**
  * 静态工厂
+ * @author ruge.wu
  */
 public class StaticConnectionFactory {
 

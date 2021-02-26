@@ -3,8 +3,11 @@ package com.ruge.spring5.scope;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+/**
+ * @author ruge.wu
+ */
 public class TestScope {
-    public static final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/application.xml");
+    public static final ClassPathXmlApplicationContext CONTEXT = new ClassPathXmlApplicationContext("/application.xml");
 
     /**
      * 测试简单对象的创建次数
@@ -13,8 +16,8 @@ public class TestScope {
      */
     @Test
     public void test1() {
-        Object account1 = context.getBean("account1");
-        Object account2 = context.getBean("account1");
+        Object account1 = CONTEXT.getBean("account1");
+        Object account2 = CONTEXT.getBean("account1");
         System.out.println(account1);
         System.out.println(account2);
     }
@@ -26,8 +29,8 @@ public class TestScope {
      */
     @Test
     public void test2() {
-        Object account1 = context.getBean("account2");
-        Object account2 = context.getBean("account2");
+        Object account1 = CONTEXT.getBean("account2");
+        Object account2 = CONTEXT.getBean("account2");
         System.out.println(account1);
         System.out.println(account2);
     }
@@ -35,8 +38,8 @@ public class TestScope {
 
     @Test
     public void test3() {
-        Object account1 = context.getBean("account1");
-        Object account2 = context.getBean("account2");
+        Object account1 = CONTEXT.getBean("account1");
+        Object account2 = CONTEXT.getBean("account2");
         System.out.println(account1);
         System.out.println(account2);
     }

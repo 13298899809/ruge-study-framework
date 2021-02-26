@@ -23,8 +23,12 @@ public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    /*产品id*/
+    /**
+     * 产品id
+     */
     private Long productId;
-    /*产品库存*/
+    /**
+     * 产品库存
+     */
     private int amount;
 }

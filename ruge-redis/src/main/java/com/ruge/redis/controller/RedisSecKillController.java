@@ -23,22 +23,22 @@ public class RedisSecKillController {
 
     @RequestMapping("v1")
     public Map<String, Object> v1(long productId) {
-        Map<String, Object> map = new HashMap<>();
-        orderService.secKill_v1(productId);
+        Map<String, Object> map = new HashMap<>(16);
+        orderService.secKillV1(productId);
         return map;
     }
 
     @RequestMapping("v2")
     public Map<String, Object> v2(long productId) {
-        Map<String, Object> map = new HashMap<>();
-        orderService.secKill_v2(productId);
+        Map<String, Object> map = new HashMap<>(16);
+        orderService.secKillV2(productId);
         return map;
     }
 
     @RequestMapping("v3")
     public Map<String, Object> v3(long productId) {
-        Map<String, Object> map = new HashMap<>();
-        orderService.secKill_v3(productId);
+        Map<String, Object> map = new HashMap<>(16);
+        orderService.secKillV3(productId);
         return map;
     }
 }

@@ -54,8 +54,8 @@ public class OrderService {
 
     }
 
-    @Transactional
-    public void secKill_v1(long productId) {
+    @Transactional(rollbackFor = Exception.class)
+    public void secKillV1(long productId) {
         productRepository.findById(productId).ifPresent(e -> {
             if (e.getStock() <= 0) {
                 System.out.println("库存没有了");
@@ -74,8 +74,8 @@ public class OrderService {
         });
     }
 
-    @Transactional
-    public void secKill_v2(long productId) {
+    @Transactional(rollbackFor = Exception.class)
+    public void secKillV2(long productId) {
         Long stock = stringRedisTemplate.opsForValue().decrement("PRODUCT_" + productId);
         try {
             if (stock >= 0) {
@@ -107,8 +107,8 @@ public class OrderService {
     }
 
 
-    @Transactional
-    public void secKill_v3(long productId) {
+    @Transactional(rollbackFor = Exception.class)
+    public void secKillV3(long productId) {
         if (null != concurrentHashMap.get("PRODUCT_" + productId)) {
             return;
         }

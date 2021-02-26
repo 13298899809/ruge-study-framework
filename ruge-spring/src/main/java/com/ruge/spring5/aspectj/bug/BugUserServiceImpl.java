@@ -8,6 +8,7 @@ import org.springframework.context.*;
 /**
  * 同一个业务类中，进行业务方法间的相互调用，只有最外层方法才是加入了额外功能的
  * 内部的方法 通过普通方法调用的话 都调用的是原始方法
+ * @author ruge.wu
  */
 public class BugUserServiceImpl implements BugUserService, ApplicationContextAware {
 
@@ -22,8 +23,8 @@ public class BugUserServiceImpl implements BugUserService, ApplicationContextAwa
     @Override
     public void register(String userName, String passWord) {
         System.out.println("bug aspectj 用户注册 -->" + userName + "," + passWord);
-        BugUserServiceImpl userService_bug = (BugUserServiceImpl) applicationContext.getBean("userService_bug");
-        userService_bug.login(userName, passWord);
+        BugUserServiceImpl userServiceBug = (BugUserServiceImpl) applicationContext.getBean("userService_bug");
+        userServiceBug.login(userName, passWord);
     }
 
     /**

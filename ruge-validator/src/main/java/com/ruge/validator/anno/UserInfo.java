@@ -22,7 +22,9 @@ public class UserInfo {
     }
 
     ;
-    /*分组校验*/
+    /**
+     * 分组校验
+     */
     @NotNull(message = "修改数据 id不能为空", groups = Update.class)
     @Null(message = "新增数据 id可以为空", groups = Add.class)
     private Integer id;
@@ -30,9 +32,11 @@ public class UserInfo {
     private String name;
     @Min(value = 10, message = "年龄最小为：{value}")
     private int age;
-    /*级联校验*/
+    /**
+     * 级联校验
+     */
     @NotNull(message = "班级不能为空")
-    @Valid // 级联校验生效注解
+    @Valid
     private Grade grade;
     @IsMobile
     private String mobile;

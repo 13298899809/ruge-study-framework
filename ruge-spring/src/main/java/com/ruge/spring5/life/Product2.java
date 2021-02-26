@@ -3,6 +3,7 @@ package com.ruge.spring5.life;
 /**
  * 多例测试
  * scope="prototype"
+ * @author ruge.wu
  */
 public class Product2 {
     public Product2() {

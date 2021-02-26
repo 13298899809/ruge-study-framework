@@ -83,7 +83,7 @@ public class TokenVerifyFilter extends BasicAuthenticationFilter {
             response.setContentType("application/json;charset=utf-8");
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             PrintWriter out = response.getWriter();
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>(16);
             map.put("code", HttpServletResponse.SC_FORBIDDEN);
             map.put("message", "请登录！");
             out.write(new ObjectMapper().writeValueAsString(map));
@@ -103,9 +103,11 @@ public class TokenVerifyFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        if (token != null) { //通过token解析出载荷信息
+        //通过token解析出载荷信息
+        if (token != null) {
             Payload<SecurityUsers> payload = JwtUtils.getInfoFromToken(token.replace("Bearer ", ""), prop.getPublicKey(), SecurityUsers.class);
-            SecurityUsers user = payload.getUserInfo(); //不为null，返回
+            //不为null，返回
+            SecurityUsers user = payload.getUserInfo();
             if (user != null) {
                 user.getRoles().forEach(e -> authorities.add(new SimpleGrantedAuthority(e.getName())));
                 return new UsernamePasswordAuthenticationToken(user, null, authorities);

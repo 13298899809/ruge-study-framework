@@ -1,5 +1,8 @@
 package com.ruge.spring5.aspectj.bug;
 
+/**
+ * @author ruge.wu
+ */
 public interface BugUserService {
     /**
      * 用户注册

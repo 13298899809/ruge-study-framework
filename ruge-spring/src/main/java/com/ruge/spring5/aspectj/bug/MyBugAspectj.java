@@ -10,13 +10,14 @@ import org.aspectj.lang.annotation.Pointcut;
  * Aspect 声明该类为切面类
  * 1 额外功能 {@link AopAround}
  * 2 切入点
+ * @author ruge.wu
  */
 @Aspect
 public class MyBugAspectj {
 
 
     @Around("execution(* *register(..))")
-    public Object Around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         /*原始方法返回值*/
         System.out.println("bug MyAspectj Around");
         Object ret = proceedingJoinPoint.proceed();

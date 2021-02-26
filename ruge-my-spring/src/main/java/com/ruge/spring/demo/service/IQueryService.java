@@ -10,6 +10,9 @@ public interface IQueryService {
 
     /**
      * 查询
+     *
+     * @param name 姓名
+     * @return 返回json数据
      */
-    public String query(String name);
+    String query(String name);
 }

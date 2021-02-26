@@ -1,7 +1,9 @@
 package com.ruge.spring5.aop;
 
-import org.springframework.beans.factory.BeanFactory;
 
+/**
+ * @author ruge.wu
+ */
 public class UserServiceImpl implements UserService {
 
 

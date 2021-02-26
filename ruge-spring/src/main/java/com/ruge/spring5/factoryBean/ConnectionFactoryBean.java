@@ -6,6 +6,9 @@ import org.springframework.beans.factory.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+/**
+ * @author ruge.wu
+ */
 @Data
 public class ConnectionFactoryBean implements FactoryBean<Connection> {
 

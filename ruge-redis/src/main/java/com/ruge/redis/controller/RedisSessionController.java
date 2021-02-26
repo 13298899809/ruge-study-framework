@@ -20,7 +20,7 @@ public class RedisSessionController {
     @RequestMapping("test")
     public Map<String, Object> map(HttpServletRequest request) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         List list = (List) request.getSession().getAttribute("list");
         if (null == list) {
             list = new ArrayList();

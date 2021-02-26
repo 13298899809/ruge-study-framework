@@ -111,4 +111,38 @@ public class StringRedisKeysTest {
         tspMusicService.findAll();
     }
 
+    @Test
+    public void test_cache_redis2_init() {
+        tspMusicService.init();
+    }
+
+    @Test
+    public void test_cache_redis2_findFirstById() {
+        tspMusicService.findFirstByAid("1");
+    }
+
+    @Test
+    public void test_cache_redis2_findFirstByIdCache() {
+        tspMusicService.findFirstByAidCache("1");
+    }
+
+    @Test
+    public void test_cache_redis2_updateById() {
+        tspMusicService.updateByAid(TspMusic.builder().aid("1").build());
+    }
+
+    @Test
+    public void test_cache_redis2_updateByIdCache() {
+        tspMusicService.updateByAidCache(TspMusic.builder().aid("1").build());
+    }
+
+    @Test
+    public void test_cache_redis2_deleteById() {
+        tspMusicService.deleteByAid("1");
+    }
+
+    @Test
+    public void test_cache_redis2_deleteByIdCache() {
+        tspMusicService.deleteByAidCache("1");
+    }
 }

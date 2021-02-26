@@ -6,6 +6,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 
+/**
+ * @author ruge.wu
+ */
 public class MyBeanPostProcessor implements BeanPostProcessor {
 
     /**

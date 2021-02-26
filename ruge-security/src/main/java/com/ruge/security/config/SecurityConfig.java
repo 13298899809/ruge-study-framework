@@ -15,13 +15,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.RememberMeConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -195,11 +191,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .passwordParameter("password")  /*自定义密码属性*/
                 //.successForwardUrl("/index.html")   /*服务端跳转*/
                 //.defaultSuccessUrl("/index.html")   /*重定向地址*/
-                .successHandler((rep, resp, auth) -> {   /*登录成功的处理器*/
+                /*登录成功的处理器*/
+                .successHandler((rep, resp, auth) -> {
                     resp.setContentType("application/json;charset=utf-8");
                     PrintWriter out = resp.getWriter();
                     Object principal = auth.getPrincipal();
-                    Map<String, Object> map = new HashMap<>();
+                    Map<String, Object> map = new HashMap<>(16);
                     map.put("msg", "登录成功");
                     map.put("principal", principal);
                     String s = new ObjectMapper().writeValueAsString(map);
@@ -210,7 +207,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler((rep, resp, exception) -> {
                     resp.setContentType("application/json;charset=utf-8");
                     PrintWriter out = resp.getWriter();
-                    Map<String, Object> map = new HashMap<>();
+                    Map<String, Object> map = new HashMap<>(16);
                     if (exception instanceof LockedException) {
                         map.put("msg", "账户被锁定，请联系管理员!");
                     } else if (exception instanceof CredentialsExpiredException) {
@@ -230,7 +227,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe()
                 .tokenValiditySeconds(1209600)
-                .key("ruge")   //key： 用来存放token的，（一会将什么是token）
+                //key： 用来存放token的，（一会将什么是token）
+                .key("ruge")
                 //.rememberMeParameter("remeber-me")
                 .withObjectPostProcessor(new ObjectPostProcessor<RememberMeConfigurer>() {
                     @Override
@@ -246,7 +244,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
                 .logoutSuccessHandler((req, resp, authentication) -> {
                             resp.setContentType("application/json;charset=utf-8");
-                            Map<String, Object> map = new HashMap<>();
+                            Map<String, Object> map = new HashMap<>(16);
                             map.put("msg", "注销成功");
                             PrintWriter out = resp.getWriter();
                             out.write(new ObjectMapper().writeValueAsString(map));
@@ -264,7 +262,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     resp.setContentType("application/json;charset=utf-8");
                     resp.setStatus(401);
                     PrintWriter out = resp.getWriter();
-                    Map<String, Object> map = new HashMap<>();
+                    Map<String, Object> map = new HashMap<>(16);
                     if (exception instanceof InsufficientAuthenticationException) {
                         map.put("msg", "您无权操作，请登陆!");
                     }

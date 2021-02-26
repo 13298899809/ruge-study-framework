@@ -1,5 +1,8 @@
 package com.ruge.spring5.aspectj;
 
+/**
+ * @author ruge.wu
+ */
 public class UserServiceImpl implements UserService {
 
 

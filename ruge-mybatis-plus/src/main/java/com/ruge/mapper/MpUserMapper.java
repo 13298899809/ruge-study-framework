@@ -1,7 +1,7 @@
 package com.ruge.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ruge.entitys.MPUser;
+import com.ruge.entitys.MpUser;
 
 /**
  * @author ruge.wu
@@ -9,5 +9,5 @@ import com.ruge.entitys.MPUser;
  * @ClassName UserMapper
  * @date 2020.06.19 15:05
  */
-public interface MPUserMapper extends BaseMapper<MPUser> {
+public interface MpUserMapper extends BaseMapper<MpUser> {
 }

@@ -26,7 +26,7 @@ public class LoginController {
 
     @GetMapping("/hello")
     public Map<String, Object> hello() {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         SecurityContext context = SecurityContextHolder.getContext();
         map.put("user1", context);
         map.put("user2", context.getAuthentication());

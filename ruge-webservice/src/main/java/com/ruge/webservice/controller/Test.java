@@ -21,10 +21,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author ruge.wu
+ */
 @Controller
 public class Test {
     /**
      * 方法一：用cxf框架
+     *
      * @param url
      * @param method
      * @param args
@@ -43,7 +47,7 @@ public class Test {
         // client.getOutInterceptors().add(new ClientLoginInterceptor(USER_NAME,PASS_WORD));
         // 命名空间，方法名
         QName name = new QName("http://WebXml.com.cn/", method);
-        HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>(16);
         try {
             // invoke("方法名",参数1,参数2,参数3....);
             Object[] objects = client.invoke(name, args);
@@ -60,12 +64,13 @@ public class Test {
 
     /**
      * 方法二：自己用jax-ws的方式实现
-     * @param url 请求地址
+     *
+     * @param url             请求地址
      * @param targetNamespace 名称空间
-     * @param pName 端口名
-     * @param method 方法名
-     * @param argsName 参数名
-     * @param args  参数
+     * @param pName           端口名
+     * @param method          方法名
+     * @param argsName        参数名
+     * @param args            参数
      * @return
      * @throws Exception
      */
@@ -131,13 +136,19 @@ public class Test {
 
         // 处理响应结果
         Document doc = reply.getSOAPPart().getEnvelope().getBody().extractContentAsDocument();
-        HashMap<String, Object> map = new HashMap<>();
-            map.put("result", doc);
+        HashMap<String, Object> map = new HashMap<>(16);
+        map.put("result", doc);
         return map;
 
     }
 
-    // Document对象转字符串
+    /**
+     * Document对象转字符串
+     *
+     * @param doc doc
+     * @return 对象字符串
+     * @throws Exception {@link Exception}
+     */
     public static String format(Document doc) throws Exception {
         // XML转字符串
         String xmlStr = "";

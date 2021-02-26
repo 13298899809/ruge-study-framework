@@ -13,13 +13,17 @@ import java.util.Date;
  * @Description:
  * @date 2020/6/7 22:00
  */
-@Service
 @Slf4j
-public class QueryService implements IQueryService {
+@Service
+public class QueryServiceImpl implements IQueryService {
 
     /**
      * 查询
+     *
+     * @param name 姓名
+     * @return 返回json数据
      */
+    @Override
     public String query(String name) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = sdf.format(new Date());

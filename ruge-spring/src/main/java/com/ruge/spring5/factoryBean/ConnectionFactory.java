@@ -4,8 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 /**
- * 实例工厂
+ * @author ruge.wu
  */
 public class ConnectionFactory {
 

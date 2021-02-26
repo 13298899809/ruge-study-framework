@@ -3,6 +3,7 @@ package com.ruge.spring5.life;
 /**
  * 单例测试
  * scope="singleton"
+ * @author ruge.wu
  */
 public class Product1 {
     public Product1() {

@@ -1,8 +1,21 @@
 spring:
   redis:
-    host: 172.20.24.130
+    host: 47.93.18.115
     port: 6379
-    password: 651tkoOuMeQzxLZfFUAv
+    password:
+    lettuce:
+      pool:
+        #连接池最大连接数
+        max-active: 10
+        #连接池最大阻塞时间
+        max-wait: -1
+        #连接池中最大空闲连接
+        max-idle: 5
+        #连接池中最小空闲连接
+        min-idle: 1
+    #连接超时时间
+    timeout: 5000
+    database: 0
   datasource:
     url: jdbc:mysql://172.20.2.123:3306/driving_report?serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&useSSL=false
     driver-class-name: com.mysql.cj.jdbc.Driver

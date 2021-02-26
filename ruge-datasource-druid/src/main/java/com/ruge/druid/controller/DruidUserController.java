@@ -23,7 +23,7 @@ public class DruidUserController {
 
     @GetMapping("list")
     public Map<String, Object> list() {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         List<DruidUser> all = druidUserRepository.findAll();
         map.put("all", all);
         return map;

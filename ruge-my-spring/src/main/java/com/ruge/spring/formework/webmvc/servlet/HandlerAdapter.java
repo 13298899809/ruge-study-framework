@@ -23,7 +23,7 @@ public class HandlerAdapter {
         HandlerMapping handlerMapping = (HandlerMapping)handler;
 
         //把方法的形参列表和request的参数列表所在顺序进行一一对应
-        Map<String,Integer> paramIndexMapping = new HashMap<String, Integer>();
+        Map<String,Integer> paramIndexMapping = new HashMap<>(16);
 
 
         //提取方法中加了注解的参数

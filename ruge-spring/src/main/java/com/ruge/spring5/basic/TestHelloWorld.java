@@ -5,17 +5,20 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Arrays;
 
+/**
+ * @author ruge.wu
+ */
 public class TestHelloWorld {
-    public static final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/application.xml");
+    public static final ClassPathXmlApplicationContext CONTEXT = new ClassPathXmlApplicationContext("/application.xml");
 
     /**
      * spring getBean()
      */
     @Test
     public void test() {
-        Object bean = context.getBean("person");
+        Object bean = CONTEXT.getBean("person");
         System.out.println(bean);
-        Person person = context.getBean("person", Person.class);
+        Person person = CONTEXT.getBean("person", Person.class);
         System.out.println(person);
     }
 
@@ -28,11 +31,11 @@ public class TestHelloWorld {
      */
     @Test
     public void test2() {
-        String[] strings = context.getBeanDefinitionNames();
+        String[] strings = CONTEXT.getBeanDefinitionNames();
         Arrays.asList(strings).stream().forEach(e -> {
             System.out.println(e);
         });
-        System.out.println(context.getBeanDefinitionCount());
+        System.out.println(CONTEXT.getBeanDefinitionCount());
     }
 
     /**
@@ -41,7 +44,7 @@ public class TestHelloWorld {
      */
     @Test
     public void test3() {
-        String[] strings = context.getBeanNamesForType(Person.class);
+        String[] strings = CONTEXT.getBeanNamesForType(Person.class);
         Arrays.asList(strings).stream().forEach(e -> {
             System.out.println(e);
         });
@@ -58,10 +61,10 @@ public class TestHelloWorld {
      */
     @Test
     public void test4() {
-        System.out.println(context.containsBean("person1"));
-        System.out.println(context.containsBean("p"));
-        System.out.println(context.containsBeanDefinition("person1"));
-        System.out.println(context.containsBeanDefinition("p"));
+        System.out.println(CONTEXT.containsBean("person1"));
+        System.out.println(CONTEXT.containsBean("p"));
+        System.out.println(CONTEXT.containsBeanDefinition("person1"));
+        System.out.println(CONTEXT.containsBeanDefinition("p"));
     }
 
     /**
@@ -71,9 +74,9 @@ public class TestHelloWorld {
      */
     @Test
     public void test5() {
-        Object bean = context.getBean("p");
-        Object bean1 = context.getBean("p1");
-        Object bean2 = context.getBean("p2");
+        Object bean = CONTEXT.getBean("p");
+        Object bean1 = CONTEXT.getBean("p1");
+        Object bean2 = CONTEXT.getBean("p2");
         System.out.println(bean);
         System.out.println(bean1);
         System.out.println(bean2);

@@ -29,19 +29,33 @@ public class SecurityUsers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    /*用户名*/
+    /**
+     * 用户名
+     */
     private String username;
-    /*密码*/
+    /**
+     * 密码
+     */
     private String password;
-    /*权限集合*/
+    /**
+     * 权限集合
+     */
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<SecurityAuthorities> roles;
-    /*账户没有过期*/
+    /**
+     * 账户没有过期
+     */
     private boolean accountNonExpired;
-    /*账户没有锁定*/
+    /**
+     * 账户没有锁定
+     */
     private boolean accountNonLocked;
-    /*证书没有过期*/
+    /**
+     * 证书没有过期
+     */
     private boolean credentialsNonExpired;
-    /*账户是否有效*/
+    /**
+     * 账户是否有效
+     */
     private boolean enabled;
 }

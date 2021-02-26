@@ -7,20 +7,23 @@ import javax.persistence.*;
 import java.util.List;
 
 
+/**
+ * @author ruge.wu
+ */
 public class TestTx {
 
-    public static final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/spring-tx.xml");
-    public static final UserAccountService userAccountService = (UserAccountService) context.getBean("accountService");
+    public static final ClassPathXmlApplicationContext CONTEXT = new ClassPathXmlApplicationContext("/spring-tx.xml");
+    public static final UserAccountService USERACCOUNTSERVICE = (UserAccountService) CONTEXT.getBean("accountService");
 
     @Test
     public void test() {
-        userAccountService.save();
+        USERACCOUNTSERVICE.save();
     }
 
 
     @Test
     public void testInsert() {
-        EntityManagerFactory entityManagerFactory = (EntityManagerFactory) context.getBean("entityManagerFactory");
+        EntityManagerFactory entityManagerFactory = (EntityManagerFactory) CONTEXT.getBean("entityManagerFactory");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
@@ -34,7 +37,7 @@ public class TestTx {
 
     @Test
     public void testList() {
-        EntityManagerFactory entityManagerFactory = (EntityManagerFactory) context.getBean("entityManagerFactory");
+        EntityManagerFactory entityManagerFactory = (EntityManagerFactory) CONTEXT.getBean("entityManagerFactory");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         Query nativeQuery = entityManager.createQuery("select t from UserAccount t");
         List resultList = nativeQuery.getResultList();

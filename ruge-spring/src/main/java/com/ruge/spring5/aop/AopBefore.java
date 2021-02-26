@@ -5,6 +5,9 @@ import org.springframework.aop.MethodBeforeAdvice;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+/**
+ * @author ruge.wu
+ */
 public class AopBefore implements MethodBeforeAdvice {
     /**
      * 把需要运行在原始方法执行之前的功能，卸载Before方法中

@@ -3,6 +3,9 @@ package com.ruge.spring5.aop;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
+/**
+ * @author ruge.wu
+ */
 public class AopAround implements MethodInterceptor {
     /**
      * @param methodInvocation 额外功能所增加给的原始方法

@@ -7,6 +7,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * @author ruge.wu
+ */
 @Data
 public class MyConverter implements Converter<String, Date> {
 

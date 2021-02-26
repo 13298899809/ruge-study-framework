@@ -12,7 +12,9 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 public class Grade {
-    /*班级号*/
+    /**
+     * 班级号
+     */
     @NotNull(message = "班号不能为空")
     private Integer id;
 }

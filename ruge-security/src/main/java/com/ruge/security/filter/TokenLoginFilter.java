@@ -65,7 +65,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
                 response.setContentType("application/json;charset=utf-8");
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 PrintWriter out = response.getWriter();
-                Map<String, Object> map = new HashMap<String, Object>();
+                Map<String, Object> map = new HashMap<String, Object>(16);
                 map.put("code", HttpServletResponse.SC_UNAUTHORIZED);
                 map.put("message", "账号或密码错误！");
                 out.write(new ObjectMapper().writeValueAsString(map));
@@ -116,7 +116,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
             response.setContentType("application/json;charset=utf-8");
             response.setStatus(HttpServletResponse.SC_OK);
             PrintWriter out = response.getWriter();
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>(16);
             map.put("code", HttpServletResponse.SC_OK);
             map.put("message", "登陆成功！");
             out.write(new ObjectMapper().writeValueAsString(map));

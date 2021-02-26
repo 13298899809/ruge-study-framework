@@ -19,4 +19,13 @@ public interface TspMusicRepository extends JpaRepository<TspMusic, String> {
     List<String> findDistinctAid();
 
     Optional<List<TspMusic>> findAllByAid(String aid);
+
+    Optional<TspMusic> findFirstByAid(String aid);
+
+    /**
+     * 根据aid 删除数据
+     *
+     * @param aid aid
+     */
+    void deleteByAid(String aid);
 }

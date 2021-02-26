@@ -10,6 +10,7 @@ import org.aspectj.lang.annotation.Pointcut;
  * Aspect 声明该类为切面类
  * 1 额外功能 {@link AopAround}
  * 2 切入点
+ * @author ruge.wu
  */
 @Aspect
 public class MyAspectj {
@@ -20,7 +21,7 @@ public class MyAspectj {
     }
 
     @Around("execution(* *(..))")
-    public Object Around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         /*原始方法返回值*/
         System.out.println("MyAspectj Around");
         Object ret = proceedingJoinPoint.proceed();
@@ -28,7 +29,7 @@ public class MyAspectj {
     }
 
     @Around(value = "myPointCut()")
-    public Object Around2(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object around2(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         /*原始方法返回值*/
         System.out.println("MyAspectj2 Around");
         Object ret = proceedingJoinPoint.proceed();

@@ -33,7 +33,7 @@ public class DispatcherServlet extends HttpServlet {
 
     private List<HandlerMapping> handlerMappings = new ArrayList<HandlerMapping>();
 
-    private Map<HandlerMapping, HandlerAdapter> handlerAdapters = new HashMap<HandlerMapping, HandlerAdapter>();
+    private Map<HandlerMapping, HandlerAdapter> handlerAdapters = new HashMap<>();
 
     private List<ViewResolver> viewResolvers = new ArrayList<ViewResolver>();
 
@@ -141,7 +141,10 @@ public class DispatcherServlet extends HttpServlet {
     }
 
 
-    //初始化策略
+    /**
+     * 初始化策略
+     * @param context {@link ApplicationContext}
+     */
     protected void initStrategies(ApplicationContext context) {
         //多文件上传的组件
         initMultipartResolver(context);
